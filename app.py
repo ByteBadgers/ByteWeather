@@ -6,11 +6,15 @@ from io import BytesIO
 from dotenv import load_dotenv
 import datetime
 
-# Load API key
-env_path = r"C:\Users\rodef\Downloads\ByteWeather\.env"
-load_dotenv(dotenv_path=env_path, override=True)
+from dotenv import load_dotenv
+import os
+
+# Load .env if present (local dev only — Render will use dashboard env vars)
+load_dotenv()
 API_KEY = os.getenv("OPENWEATHER_KEY")
 
+if not API_KEY:
+    raise ValueError("⚠️ OPENWEATHER_KEY not set. Check your .env locally or Render env vars.")
 
 class WeatherApp(tk.Tk):
     def __init__(self):
